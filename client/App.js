@@ -17,7 +17,7 @@ export default function App() {
       <TextInput
         onChangeText={setUsername}
         value={username}
-        placeholder="useless placeholder"
+        placeholder="Type a GitHub user"
       />
       <Button
         onPress={search}

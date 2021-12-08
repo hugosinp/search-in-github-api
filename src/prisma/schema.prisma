@@ -1,0 +1,14 @@
+datasource db {
+    provider = "sqlite"
+    url      = "file:./github-users.db"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    login String @unique
+    id    Int    @id
+    node_id String
+}
