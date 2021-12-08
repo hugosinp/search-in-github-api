@@ -7,7 +7,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "prepare": "prisma generate --schema=.src/prisma/schema.prisma",
+    "prepare": "prisma generate --schema=./src/prisma/schema.prisma",
     "build": "babel --out-dir .dist/ src/",
     "start": "node .dist/main",
     "dev": "nodemon"
