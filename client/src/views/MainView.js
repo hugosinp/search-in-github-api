@@ -15,49 +15,69 @@ const MainView = () => {
         setUsername(data.login)
         setID(data.id)
         setNodeId(data.node_id)
-        setAvatar(data.avatar)
-        setUserUrl(data.userUrl)
+        setAvatar(data.avatar_url)
+        setUserUrl(data.html_url)
     }
     
     return (
         <View style={styles.container}>
-            <Image
-                style={styles.tinyLogo}
-                source={{
-                uri: {avatar},
-                }}
-            />
-            <Text>login: {username}</Text>
-            <Text>id: {id}</Text>
-            <Text>node_id: {nodeId}</Text>
-            <Text>userUrl: {userUrl}</Text>
-            <TextInput
-                onChangeText={setUsername}
-                value={username}
-                placeholder="Type a GitHub user"
-            />
-            <Button
-                onPress={search}
-                title="Search"
-                color="#841584"
-                accessibilityLabel="Search"
-            />
+            <View style={styles.fixToText}>
+                <TextInput
+                    onChangeText={setUsername}
+                    value={username}
+                    placeholder="Search a GitHub user..."
+                    style={styles.userInput}
+                />
+                <Button
+                    onPress={search}
+                    title="Search"
+                    color="#841584"
+                    accessibilityLabel="Search"
+                />
+            </View>
+            <View>
+                <Image
+                    style={styles.logo}
+                    source={{
+                    uri: `${avatar}`,
+                    }}
+                />
+                <Text style={styles.login}>{username}</Text>
+                <Text>id: {id}</Text>
+                <Text>node_id: {nodeId}</Text>
+                <Text>userUrl: {userUrl}</Text>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    fixToText: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
     container: {
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
     },
-    tinyLogo: {
+    logo: {
         width: 200,
         height: 200,
         borderRadius: 100,
     },
+    login:{
+        fontWeight: 'bold',
+        fontSize: 40
+    },
+    userInput: {
+        borderColor: 'grey',
+        borderWidth: 1,
+        borderRadius: 20,
+        padding: 10,
+        width: '80%',
+    }
 });
   
 export default MainView
