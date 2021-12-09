@@ -11,4 +11,6 @@ model User {
     login String @unique
     id    Int    @id
     node_id String
+    avatar_url String
+    html_url String
 }
