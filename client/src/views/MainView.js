@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, SafeAreaView, Linking } from 'react-native';
 
 const MainView = () => {
     const [username, setUsername] = useState("")
@@ -20,7 +20,7 @@ const MainView = () => {
     }
     
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.fixToText}>
                 <TextInput
                     onChangeText={setUsername}
@@ -33,28 +33,45 @@ const MainView = () => {
                     title="Search"
                     color="#841584"
                     accessibilityLabel="Search"
+                    style={styles.searchButton}
                 />
             </View>
-            <View>
-                <Image
-                    style={styles.logo}
-                    source={{
-                    uri: `${avatar}`,
-                    }}
-                />
-                <Text style={styles.login}>{username}</Text>
-                <Text>id: {id}</Text>
-                <Text>node_id: {nodeId}</Text>
-                <Text>userUrl: {userUrl}</Text>
-            </View>
-        </View>
+
+            {
+                search ?
+                    <View>
+                        <Image
+                            style={styles.logo}
+                            source={{
+                            uri: `${avatar}`,
+                            }}
+                        />
+                        <Text style={styles.login}>{username}</Text>
+                        <Text>id: {id}</Text>
+                        <Text>node_id: {nodeId}</Text>
+                        <Button
+                            title="Link to Profile"
+                            onPress={() => Linking.openURL(`${userUrl}`)}
+                            style={styles.url}
+                        />
+                    </View>
+                : !search &&
+                    <Text style={styles.login}>Search an user !</Text>
+            }
+
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     fixToText: {
+        position: 'absolute',
+        top: 80,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        paddingLeft: 40,
+        paddingRight: 40,
+        margin: 'auto',
     },
     container: {
       flex: 1,
@@ -71,12 +88,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 40
     },
+    url:{
+        color:"blue"
+    },
     userInput: {
         borderColor: 'grey',
         borderWidth: 1,
         borderRadius: 20,
         padding: 10,
         width: '80%',
+    },
+    searchButton: {
+        width: '20%',
+        backgroundColor: 'white',
     }
 });
   
