@@ -39,7 +39,22 @@ const getGitHubData = async (request, response) => {
     await axios.get(`https://api.github.com/users/${request.params.username}`)
     .then(async (data) => {
         try{
-            const { id, login, node_id, avatar_url, html_url } = data.data
+            const { 
+                id, 
+                login, 
+                node_id, 
+                avatar_url, 
+                html_url,
+                name,
+                company,
+                location,
+                bio,
+                twitter_username,
+                email,
+                following,
+                followers,
+                created_at
+            } = data.data
 
             const post = await prisma.user.create({
                 data: {
@@ -47,7 +62,16 @@ const getGitHubData = async (request, response) => {
                     login,
                     node_id,
                     avatar_url,
-                    html_url
+                    html_url,
+                    name,
+                    company,
+                    location,
+                    bio,
+                    twitter_username,
+                    email,
+                    following,
+                    followers,
+                    created_at
                 },
             })
     

@@ -10,7 +10,16 @@ generator client {
 model User {
     login String @unique
     id    Int    @id
+    name String?
+    company String?
+    location String?
+    bio String?
+    twitter_username String?
     node_id String
+    email String?
     avatar_url String
     html_url String
+    following Int
+    followers Int
+    created_at String
 }
