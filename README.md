@@ -1,5 +1,4 @@
 # search-in-github-api
-***
 ## Author : Hugo SINPRASITH
 
 Server-side of the application.  
