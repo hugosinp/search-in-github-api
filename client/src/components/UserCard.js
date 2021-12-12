@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { StyleSheet, Text, View, Button, Image, FlatList, ActivityIndicator } from 'react-native';
+import { Text, View, Button, Image, ActivityIndicator } from 'react-native';
 
 import { getDataByUsername } from '../redux/actions/dataActions'
 
-const UserCard = ({ allUsersLoading, allUsersError, login, avatar_url  }) => {
+const UserCard = ({ styles, allUsersLoading, allUsersError, login, avatar_url  }) => {
     
     const dispatch = useDispatch();
 
@@ -16,7 +16,6 @@ const UserCard = ({ allUsersLoading, allUsersError, login, avatar_url  }) => {
                     <ActivityIndicator size="large" />
                 : login ?
                         <View style={styles.container}>
-
                             <Image
                                 style={styles.logo}
                                 source={{
@@ -30,7 +29,7 @@ const UserCard = ({ allUsersLoading, allUsersError, login, avatar_url  }) => {
 
                             <Button 
                                 title="Go"
-                                color="#841584"
+                                color="#81b0ff"
                                 onPress={() => {
                                     dispatch(getDataByUsername(login))
                                 }}
@@ -46,21 +45,5 @@ const UserCard = ({ allUsersLoading, allUsersError, login, avatar_url  }) => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    logo: {
-        width: 30,
-        height: 30,
-        borderRadius: 100,
-    },
-    login:{
-        fontWeight: 'bold',
-        fontSize: 20
-    }
-});
 
 export default UserCard

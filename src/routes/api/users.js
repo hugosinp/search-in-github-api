@@ -29,6 +29,7 @@ api.get('/:username', async (request, response) => {
     } else {
         getGitHubData(request, response)
     }
+
 })
 
 

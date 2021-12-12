@@ -1,23 +1,49 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, Image, Linking, ActivityIndicator } from 'react-native';
+import { Text, View, Button, Image, Linking, ActivityIndicator } from 'react-native';
 
-const UserDetails = ({ userLoading, userData, userError }) => {
+import searchLogo from '../static/img/search.png'
+
+const UserDetails = ({ styles, userLoading, userData, userError }) => {
+
     return (
-        <View style={styles.container}>
+        <View style={styles.containerCenter}>
             {
                 userLoading ?
                     <ActivityIndicator size="large" />
-                : userData ?
-                    <View style={styles.container}>
+                : userData && userData.length === undefined ?
+                    <View style={styles.containerCenter}>
                         <Image
-                            style={styles.logo}
+                            style={styles.bigLogo}
                             source={{
-                            uri: `${userData.avatar_url}`,
+                                uri: `${userData.avatar_url}`,
                             }}
                         />
-                        <Text style={styles.login}>{userData.login}</Text>
-                        <Text>id: {userData.id}</Text>
-                        <Text>node_id: {userData.node_id}</Text>
+                        <Text style={styles.bigLogin}>{userData.login}</Text>
+                        {
+                            userData.name &&
+                                <Text style={styles.textColor}>{userData.name} | {userData.bio}</Text>
+                        }
+                        {
+                            userData.email &&
+                                <Text style={styles.textColor}>📫 Email : {userData.email}</Text>
+                        }
+                        {
+                            userData.company &&
+                                <Text style={styles.textColor}>🏢 Company : {userData.company}</Text>
+                        }
+                        {
+                            userData.location &&
+                                <Text style={styles.textColor}>📍 Location : {userData.location}</Text>
+                        }
+                        {
+                            userData.twitter_url &&
+                                <Text style={styles.textColor}>Twitter : {userData.twitter_url}</Text>
+                        }
+                        <Text style={styles.textColor}>User since : {userData.created_at}</Text>
+                        <Text style={styles.textColor}>
+                            Following: {userData.following} | Followers: {userData.followers}
+                        </Text>
+                        
                         <Button
                             title="Link to Profile"
                             onPress={() => Linking.openURL(`${userData.html_url}`)}
@@ -27,31 +53,16 @@ const UserDetails = ({ userLoading, userData, userError }) => {
                 : userError ?
                     <Text>An error occured during fetch ! {userError}</Text>
                 :
-                    <Text>Search an User !</Text>   
+                    <View style={styles.row}>
+                        <Image
+                            style={styles.searchLogo}
+                            source={searchLogo}
+                        />
+                        <Text style={styles.searchText}>Search a GitHub user !</Text>
+                    </View>
             }
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    logo: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-    },
-    login:{
-        fontWeight: 'bold',
-        fontSize: 40
-    },
-    url:{
-        margin: 20,
-        color:"blue"
-    },
-});
 
 export default UserDetails

@@ -5,6 +5,7 @@ import {
     GET_ALL_DATA_REQUEST,
     GET_ALL_DATA_SUCCESS,
     GET_ALL_DATA_FAILURE,
+    SWITCH_DARK_MODE
 }  from '../constants/dataConstants'
 
 import axios from 'axios'
@@ -16,8 +17,8 @@ export const getDataByUsername = (username) => async (dispatch) => {
         })
 
         // API CALL
-        const { data } = await axios.get(`http://localhost:4242/api/users/${username}`)
-        const all_data = await axios.get(`http://localhost:4242/api/users`)
+        const { data } = await axios.get(`https://search-in-github-api.herokuapp.com/api/users/${username}`)
+        const all_data = await axios.get(`https://search-in-github-api.herokuapp.com/api/users`)
 
         dispatch({
             type: GET_USER_DATA_SUCCESS,
@@ -42,7 +43,7 @@ export const getData = () => async (dispatch) => {
         })
 
         // API CALL
-        const { data } = await axios.get(`http://localhost:4242/api/users`)
+        const { data } = await axios.get(`https://search-in-github-api.herokuapp.com/api/users`)
 
         dispatch({
             type: GET_ALL_DATA_SUCCESS,
@@ -57,4 +58,12 @@ export const getData = () => async (dispatch) => {
                     : error.message
         })
     }
+}
+
+export const switchMode = () => async (dispatch) => {
+
+    dispatch({
+        type: SWITCH_DARK_MODE,
+    })
+    
 }
